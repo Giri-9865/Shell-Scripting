@@ -1,0 +1,76 @@
+#!/bin/bash
+
+
+#######################################################
+#
+# AUTHOR  : Girivel R
+# DATE    : Nov 16, 2023
+# VERSION : V1
+#
+#
+# USE  : This script will report the AWS Resource usage
+#
+#######################################################
+
+
+set  -e
+
+
+current_date_time=$(date "+%Y-%m-%d %H:%M:%S")
+echo "Log entry Date : $current_date_time" >> /home/girivel/Desktop/Shell\ Scripting/resourcelog
+# AWS S3
+# AWS EC2
+# AWS Lambda
+# AWS IAM Users
+
+#Tracking EC2 instances
+
+echo " EC2 INSTANCES" >> /home/girivel/Desktop/Shell\ Scripting/resourcelog
+aws ec2 describe-instances --query 'Reservations[*].Instances[*].[Tags[?Key==`Name`].Value | [0], InstanceId,State.Name,PublicIpAddress]' --output table >> /home/girivel/Desktop/Shell\ Scripting/resourcelog
+
+
+# Tracking S3
+
+echo "S3 Bucket" >> /home/girivel/Desktop/Shell\ Scripting/resourcelog
+aws s3 ls --output table >> /home/girivel/Desktop/Shell\ Scripting/resourcelog
+
+
+# Tracking Lambda functions
+
+echo "Lambda Functions" >> /home/girivel/Desktop/Shell\ Scripting/resourcelog
+aws lambda list-functions >> /home/girivel/Desktop/Shell\ Scripting/resourcelog
+
+# Tracking IAM Users
+
+echo "IAM Users" >> /home/girivel/Desktop/Shell\ Scripting/resourcelog
+aws iam list-users >> /home/girivel/Desktop/Shell\ Scripting/resourcelog
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
