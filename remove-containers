@@ -1,0 +1,21 @@
+#!/bin/bash
+
+
+#############################################################
+#
+#    Author : Girivel R
+#    Date   : 18-Dec-2023
+#    Version: V1
+#
+#    Use : To stop and remove all the running containers
+#
+#############################################################
+set -e
+
+cont=$(docker ps --format "{{.ID}}")
+
+for i in $cont
+do 
+	docker stop $i
+	docker rm $i
+done
